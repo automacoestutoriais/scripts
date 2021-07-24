@@ -1,4 +1,19 @@
-﻿#SingleInstance Force
+﻿;~ Esse script foi criado com o intuito de ajudar a todos aqueles que vão utilizar os comandos PixelSearch ou ImageSearch, facilitando na hora de pegar uma cor ou uma área para fazer uma busca.
+
+;~ As ações e o seu funcionamento são mostrados no Vídeo Tutorial 17, na seguinte minutagem:  https://youtu.be/57AHZv4G1GM?t=506
+
+;~ Você pode ficar a vontade para alterar e mudar os botões que executam cada ação. Tais botões são:
+
+;~ MButton:: (Linha 25)(Botão do Meio do Mouse) - Serve para ligar o script e mudar de função.
+;~ LControl & RAlt:: (Linha 67)(Tecla AltGr ou Teclas Ctrl do Lado Esquerdo + Alt do Lado Direito) - Serve para copiar a cor exibida.
+;~ Up:: (Linha 82)(Seta para Cima) - Serve para andar com o mouse 1 Pixel para cima.
+;~ Down:: (Linha 87)(Seta para Baixo) - Serve para andar com o mouse 1 Pixel para baixo.
+;~ Left:: (Linha 92)(Seta para Esquerda) - Serve para andar com o mouse 1 Pixel para esquerda.
+;~ Right:: (Linha 97)(Seta para Direita) - Serve para andar com o mouse 1 Pixel para direita.
+;~ RButton:: (Linha 104)(Botão Direito do Mouse) - Serve para selecionar uma área.
+;~ End:: (Linha 130)(Tecla End) - Serve para finalizar o script.
+
+#SingleInstance Force
 
 CoordMode, Mouse, Screen
 CoordMode, Pixel, Screen
