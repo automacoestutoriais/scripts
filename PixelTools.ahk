@@ -5,13 +5,13 @@
 ;~ Você pode ficar a vontade para alterar e mudar os botões que executam cada ação. Tais botões são:
 
 ;~ MButton:: (Linha 25)(Botão do Meio do Mouse) - Serve para ligar o script e mudar de função.
-;~ LControl & RAlt:: (Linha 67)(Tecla AltGr ou Teclas Ctrl do Lado Esquerdo + Alt do Lado Direito) - Serve para copiar a cor exibida.
-;~ Up:: (Linha 82)(Seta para Cima) - Serve para andar com o mouse 1 Pixel para cima.
-;~ Down:: (Linha 87)(Seta para Baixo) - Serve para andar com o mouse 1 Pixel para baixo.
-;~ Left:: (Linha 92)(Seta para Esquerda) - Serve para andar com o mouse 1 Pixel para esquerda.
-;~ Right:: (Linha 97)(Seta para Direita) - Serve para andar com o mouse 1 Pixel para direita.
-;~ RButton:: (Linha 104)(Botão Direito do Mouse) - Serve para selecionar uma área.
-;~ End:: (Linha 130)(Tecla End) - Serve para finalizar o script.
+;~ LControl & RAlt:: (Linha 64)(Tecla AltGr ou Teclas Ctrl do Lado Esquerdo + Alt do Lado Direito) - Serve para copiar a cor exibida.
+;~ Up:: (Linha 79)(Seta para Cima) - Serve para andar com o mouse 1 Pixel para cima.
+;~ Down:: (Linha 84)(Seta para Baixo) - Serve para andar com o mouse 1 Pixel para baixo.
+;~ Left:: (Linha 89)(Seta para Esquerda) - Serve para andar com o mouse 1 Pixel para esquerda.
+;~ Right:: (Linha 94)(Seta para Direita) - Serve para andar com o mouse 1 Pixel para direita.
+;~ RButton:: (Linha 101)(Botão Direito do Mouse) - Serve para selecionar uma área.
+;~ End:: (Linha 137)(Tecla End) - Serve para finalizar o script.
 
 #SingleInstance Force
 
@@ -38,26 +38,23 @@ if (tool = 0)
 }
 if (tool = 1)
 {
-	Gui, Main:Default
-	Gui, Destroy
+	Gui, Area:Destroy
 	MsgBox, 64, Pixel Tools, BUSCA COR
 	Gui, Cor:New
-	Gui, +AlwaysOnTop +Resize
-	Gui, Show, w200 h200 x0 y0, COR
+	Gui, Cor:+AlwaysOnTop +Resize
+	Gui, Cor:Show, w200 h200 x0 y0, COR
 	SetTimer, gui_cor, 0
 }
 if (tool = 2)
 {
+	Gui, Cor:Destroy
 	SetTimer, gui_cor, Off
 	MsgBox, 64, Pixel Tools, BUSCAR ÁREA
 	SetTimer, area, 0
-	ToolTip, Selecione uma área
-	Gui, Cor:Default
-	Gui, Destroy
-	Gui, Main:New
-	Gui, -Caption Border +AlwaysOnTop
-	Gui, Color, 0xD0FFFF
-	Gui, +LastFound
+	Gui, Area:New
+	Gui, Area:-Caption Border +AlwaysOnTop
+	Gui, Area:Color, 0xD0FFFF
+	Gui, Area:+LastFound
 	WinSet, Transparent, 50
 }
 return
@@ -103,7 +100,6 @@ return
 
 RButton::
 SetTimer, area, Off
-Gui, Main:Default
 MouseGetPos, x1, y1
 while GetKeyState("RButton", "P")
 {
@@ -111,9 +107,10 @@ while GetKeyState("RButton", "P")
 	MouseGetPos, x2, y2
 	x3 := x2 - x1
 	y3 := y2 - y1
-	Gui, Show, x%x1% y%y1% w%x3% h%y3%
+	Gui, Area:Show, x%x1% y%y1% w%x3% h%y3%
 }
-Gui, Cancel
+ToolTip
+Gui, Area:Cancel
 Clipboard = %x1%, %y1%, %x2%, %y2%
 ToolTip, ÁREA COPIADA!
 Sleep, 1000
@@ -122,10 +119,20 @@ SetTimer, area, 0
 return
 
 area:
-ToolTip, Selecione uma área
+if (tool = 0)
+{
+	SetTimer, area, Off
+}
+else
+{
+	ToolTip, Selecione uma área
+}
 return
 
 #if
+
+CorGuiClose:
+ExitApp
 
 End::
 ExitApp
